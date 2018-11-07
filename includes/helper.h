@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 17:57:16 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/02 22:27:55 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/07 11:23:01 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <wchar.h>
+
+# define IS_LOWER (x) (x >= 'a' && x <= 'z') ? 1 : 0;
+# define IS_UPPER (x) (x >= 'A' && x <= 'Z') ? 1 : 0;
 
 typedef struct	s_flags
 {
@@ -49,8 +52,7 @@ typedef struct	s_conversion
 
 int				ft_printf(const char *format, ...);
 t_conversion	*pf_new_conversion(char *str);
-char			*pf_conversion(va_list arg, char *str, int *ret);
-void			pf_del_conversion(t_conversion *cvss);
+char			*pf_conversion(va_list arg, char *str);
 
 /*
 ** Parsing functions
@@ -65,24 +67,26 @@ char			*pf_parse_conversion(char *str, t_conversion *cvss);
 void			pf_wrd_case(va_list arg, t_conversion *cvss);
 void			pf_putwchar(t_conversion *cvss, wint_t wint);
 void			pf_putwstr(t_conversion *cvss, wchar_t *str);
-void			pf_putchar(t_conversion *cvss, char c);
+extern void		pf_putchar(t_conversion *cvss, char c);
 void			pf_putstr(t_conversion *cvss, char *str);
+void			pf_putwint(wint_t wint);
 
 /*
 ** Num case hanlder
 */
 
 void			pf_num_case(va_list arg, t_conversion *cvss);
-void			pf_d_case(t_conversion *cvss, intmax_t inum);
-void			pf_u_case(t_conversion *cvss, uintmax_t unum);
-void			pf_o_case(t_conversion *cvss, uintmax_t unum);
-void			pf_X_case(t_conversion *cvss, uintmax_t unum);
-void			pf_xp_case(t_conversion *cvss, uintmax_t unum);
+void			pf_d_case(t_conversion *cvss, intmax_t num);
+void			pf_itoa_base(t_conversion *cvss, uintmax_t num, uintmax_t base);
 
 /*
-** Some helper function
+** Putting function
 */
 
-char			*pf_putstr_until(char *str, char c, int *ret);
+char			*pf_putstr_until(char *str, char c);
+void			pf_print_space_or_0(int str_len, int min, char c);
+int				pf_printed_count(int size, int add);
+int				pf_pacount(void *mem, int size);
+void			pf_print_str(char *str);
 
 #endif

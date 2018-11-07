@@ -6,7 +6,7 @@
 #    By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/19 13:42:34 by kbui              #+#    #+#              #
-#    Updated: 2018/10/30 18:48:00 by kbui             ###   ########.fr        #
+#    Updated: 2018/11/06 23:36:40 by kbui             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ NAME = libftprintf.a
 
 FLAGS = -Wall -Wextra -Werror -O2
 
+LIBFT = libft
+
 DIR_S = srcs
 
 DIR_O = obj
@@ -23,9 +25,13 @@ DIR_O = obj
 HEADER = includes
 
 SOURCES = pf_va.c \
-			pf_checklen.c \
-			pf_put.c
-
+			pf_helper.c \
+			pf_parsing.c \
+			pf_case_handler.c \
+			pf_num_case.c \
+			pf_wrd_case.c \
+			pf_wchar_handler.c \
+			
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
@@ -33,6 +39,8 @@ OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@make -C $(LIBFT)
+	@cp libft/libft.a ./$(NAME)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
@@ -50,9 +58,11 @@ norme:
 clean:
 	@rm -f $(OBJS)
 	@rm -rf $(DIR_O)
+	@make clean -C $(LIBFT)
 
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
 

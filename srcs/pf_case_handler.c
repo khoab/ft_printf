@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:40:03 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/05 17:24:14 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/06 23:15:54 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** "DOU" is "dou" with l conversion
 */
 
-inline void		is_alias(t_conversion *cvss)
+static inline void	is_alias(t_conversion *cvss)
 {
 	if (ft_strchr("DOU", cvss->type))
 	{
@@ -40,7 +40,7 @@ inline void		is_alias(t_conversion *cvss)
 ** Those function to get the value of user input by signed or unsigned
 */
 
-intmax_t		get_conv_int(va_list arg, t_conversion *cvss)
+static intmax_t		get_conv_int(va_list arg, t_conversion *cvss)
 {
 	if (cvss->modif == H)
 		return ((short)va_arg(arg, int));
@@ -55,7 +55,7 @@ intmax_t		get_conv_int(va_list arg, t_conversion *cvss)
 	return (va_arg(arg, int));
 }
 
-uintmax_t		get_conv_uint(va_list arg, t_conversion *cvss)
+static uintmax_t	get_conv_uint(va_list arg, t_conversion *cvss)
 {
 	if (cvss->modif == H)
 		return ((unsigned short)va_arg(arg, unsigned int));
@@ -74,7 +74,7 @@ uintmax_t		get_conv_uint(va_list arg, t_conversion *cvss)
 ** This function to check case then put case in order
 */
 
-void			pf_num_case(va_list arg, t_conversion *cvss)
+void				pf_num_case(va_list arg, t_conversion *cvss)
 {
 	intmax_t	inum;
 	uintmax_t	unum;
@@ -100,36 +100,5 @@ void			pf_num_case(va_list arg, t_conversion *cvss)
 			pf_itoa_base(cvss, unum, 8);
 		else if (ft_strchr("xpX", cvss->type))
 			pf_itoa_base(cvss, unum, 16);
-	}
-}
-
-/*
-** This function use for string case only
-*/
-
-void			pf_wrd_case(va_list arg, t_conversion *cvss)
-{
-	if (ft_strchr("CS", cvss->type))
-	{
-		cvss->modif = L;
-		cvss->type = ft_tolower(cvss->type);
-	}
-	if (cvss->modif == L)
-	{
-		if (cvss->type == 'c')
-			pf_putwchar(cvss, va_arg(arg, wint_t));
-		else if (cvss->type == 's')
-			pf_putwstr(cvss, va_arg(arg, wchar_t*));
-		else
-			pf_putchar(cvss, cvss->type);
-	}
-	else
-	{
-		if (cvss->type == 'c')
-			pf_putchar(cvss, va_arg(arg, int));
-		else if (cvss->type == 's')
-			pf_putstr(cvss, va_arg(arg, char*));
-		else
-			pf_putchar(cvss, cvss->type);
 	}
 }

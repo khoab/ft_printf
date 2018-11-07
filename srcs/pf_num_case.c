@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_do_case.c                                       :+:      :+:    :+:   */
+/*   pf_num_case.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:56:02 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/05 18:07:50 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/06 23:03:45 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "helper.h"
 
-inline void	pf_print_space_or_0(int str_len, int min, char c)
-{
-	int		i;
-
-	i = min - str_len;
-	if (i > 0)
-		pf_pacount(&c, i);
-}
-
-void		pf_put_all(t_conversion *cvss, char *num_str, int str_len)
+static void	pf_put_all(t_conversion *cvss, char *num_str, int str_len)
 {
 	if (cvss->flags->dash)
 	{
@@ -30,7 +21,7 @@ void		pf_put_all(t_conversion *cvss, char *num_str, int str_len)
 		pf_print_space_or_0(str_len, cvss->min_width, ' ');
 		return ;
 	}
-	else if (cvss->flags->zero)
+	if (cvss->flags->zero)
 		pf_print_space_or_0(str_len, cvss->min_width, '0');
 	else if (cvss->flags->space)
 		pf_print_space_or_0(str_len, cvss->min_width, ' ');
