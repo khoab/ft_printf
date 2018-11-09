@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 17:25:53 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 11:02:08 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/08 00:43:32 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ char		*pf_putstr_until(char *str, char c)
 
 void		pf_print_space_or_0(int str_len, int min, char c)
 {
-	int		i;
-
-	i = min - str_len;
-	if (i > 0)
-		pf_pacount(&c, i);
+	while (min-- > str_len)
+		pf_pacount(&c, 1);
 }
 
 int			pf_printed_count(int size, int add)

@@ -6,27 +6,22 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 20:05:46 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 11:38:44 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 00:16:29 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "helper.h"
 
-static t_flags				*pf_new_flags(void)
-{
-	t_flags			*flags;
-
-	ft_memset(&flags, 0, sizeof(flags));
-	return (flags);
-}
-
 t_conversion		*pf_new_conversion(char *str)
 {
 	t_conversion	*cvss;
-
-	ft_memset(&cvss, 0, sizeof(cvss));
-	cvss->flags = pf_new_flags();
+	t_flags			*flags;
+	
+	cvss = malloc(sizeof(*cvss));
+	ft_memset((void *)cvss, 0, sizeof(*cvss));
+	cvss->flags = malloc(sizeof(*flags));
+	ft_memset((void *)cvss->flags, 0, sizeof(*flags));
 	cvss->start = str;
 	cvss->modif = NONE;
 	return (cvss);

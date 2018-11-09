@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 15:12:06 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 11:21:00 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 01:58:21 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 #include "libft.h"
 #include "helper.h"
 
-static char	*pf_parse_flags(char *str, t_flags *flags)
+static char	*pf_parse_flags(char *str, t_conversion *cvss)
 {
 	while (ft_strchr("#0-+ ", *str))
 	{
 		if (*str == '#')
-			flags->hash = 1;
+			cvss->flags->hash = 1;
 		else if (*str == '0')
-			flags->zero = 1;
+			cvss->flags->zero = 1;
 		else if (*str == '+')
-			flags->plus = 1;
+			cvss->flags->plus = 1;
 		else if (*str == '-')
-			flags->dash = 1;
+			cvss->flags->dash = 1;
 		else if (*str == ' ')
-			flags->space = 1;
+			cvss->flags->space = 1;
 		else
 			exit(1);
 		str++;
 	}
+	if (!*str)
+		exit(1);
 	return (str);
 }
 
@@ -59,10 +61,12 @@ static char	*pf_parse_percision(char *str, t_conversion *cvss)
 	return (str);
 }
 
-static char	*pf_parse_modifier(char *str, t_conversion *cvss)
+static char	*pf_parse_modifier(char *str, t_conversion *cvss, int check)
 {
 	if (!(ft_strchr("hljz", *str)))
 		return (str);
+	if (check == 1)
+		return (str + 1);
 	if (ft_strncmp(str, "hh", 2) == 0)
 	{
 		cvss->modif = HH;
@@ -81,17 +85,33 @@ static char	*pf_parse_modifier(char *str, t_conversion *cvss)
 		cvss->modif = J;
 	else
 		cvss->modif = Z;
+	if (!*str)
+		exit (1);
 	return (str + 1);
 }
 
 char		*pf_parse_conversion(char *str, t_conversion *cvss)
 {
-	str = pf_parse_flags(str, cvss->flags);
-	str = pf_parse_width(str, cvss);
-	str = pf_parse_percision(str, cvss);
-	str = pf_parse_modifier(str, cvss);
+	int		check;
+
+	check = 0;
+	while (ft_strchr("#0-+ .hljz", *str) || ft_atoi(str))
+	{
+		if (ft_strchr("#0-+ ", *str))
+			str = pf_parse_flags(str, cvss);
+		if (ft_atoi(str))
+			str = pf_parse_width(str, cvss);
+		if (*str == '.')
+			str = pf_parse_percision(str, cvss);
+		if (ft_strchr("hljz", *str))
+		{
+			str = pf_parse_modifier(str, cvss, check);
+			check = 1;
+		}
+	}
 	if (!*str)
 		exit(1);
 	cvss->type = *str;
 	return (str + 1);
 }
+

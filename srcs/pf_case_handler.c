@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:40:03 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/06 23:15:54 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/07 23:59:50 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static intmax_t		get_conv_int(va_list arg, t_conversion *cvss)
 		return (va_arg(arg, long long));
 	if (cvss->modif == J)
 		return (va_arg(arg, intmax_t));
+	if (cvss->modif == Z)
+		return (va_arg(arg, ssize_t));
 	return (va_arg(arg, int));
 }
 
@@ -67,7 +69,9 @@ static uintmax_t	get_conv_uint(va_list arg, t_conversion *cvss)
 		return (va_arg(arg, unsigned long long));
 	if (cvss->modif == J)
 		return (va_arg(arg, uintmax_t));
-	return (va_arg(arg, size_t));
+	if (cvss->modif == Z)
+		return (va_arg(arg, size_t));
+	return (va_arg(arg, unsigned int));
 }
 
 /*
@@ -77,7 +81,7 @@ static uintmax_t	get_conv_uint(va_list arg, t_conversion *cvss)
 void				pf_num_case(va_list arg, t_conversion *cvss)
 {
 	intmax_t	inum;
-	uintmax_t	unum;
+	intmax_t	unum;
 
 	is_alias(cvss);
 	if (cvss->type == 'd')
@@ -95,10 +99,10 @@ void				pf_num_case(va_list arg, t_conversion *cvss)
 	{
 		unum = get_conv_uint(arg, cvss);
 		if (cvss->type == 'u')
-			pf_itoa_base(cvss, unum, 10);
+			pf_itoa_base(cvss, (uintmax_t)unum, 10);
 		else if (cvss->type == 'o')
-			pf_itoa_base(cvss, unum, 8);
+			pf_itoa_base(cvss, (uintmax_t)unum, 8);
 		else if (ft_strchr("xpX", cvss->type))
-			pf_itoa_base(cvss, unum, 16);
+			pf_itoa_base(cvss, (uintmax_t)unum, 16);
 	}
 }
