@@ -6,14 +6,14 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 18:20:18 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 11:22:40 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 11:23:16 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "helper.h"
 
-static void			pf_putchars(t_conversion *cvss, char *str, int size)
+static void	pf_putchars(t_conversion *cvss, char *str, int size)
 {
 	if (cvss->prec_set && cvss->type == 's')
 		size = (size < cvss->precision ? size : cvss->precision);
@@ -35,7 +35,7 @@ inline void	pf_putchar(t_conversion *cvss, char c)
 	pf_putchars(cvss, &c, 1);
 }
 
-void				pf_putstr(t_conversion *cvss, char *str)
+void		pf_putstr(t_conversion *cvss, char *str)
 {
 	if (!str)
 		str = "(null)";
@@ -46,7 +46,7 @@ void				pf_putstr(t_conversion *cvss, char *str)
 ** This function use for string case only
 */
 
-void				pf_wrd_case(va_list arg, t_conversion *cvss)
+void		pf_wrd_case(va_list arg, t_conversion *cvss)
 {
 	if (ft_strchr("CS", cvss->type))
 	{
@@ -77,7 +77,7 @@ void				pf_wrd_case(va_list arg, t_conversion *cvss)
 ** This function use to print set string then print out wchar_t
 */
 
-void				pf_putwint(wint_t wint)
+void		pf_putwint(wint_t wint)
 {
 	char	str[4];
 

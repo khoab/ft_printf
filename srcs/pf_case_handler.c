@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:40:03 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 23:59:50 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 11:43:33 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static uintmax_t	get_conv_uint(va_list arg, t_conversion *cvss)
 void				pf_num_case(va_list arg, t_conversion *cvss)
 {
 	intmax_t	inum;
-	intmax_t	unum;
+	uintmax_t	unum;
 
 	is_alias(cvss);
 	if (cvss->type == 'd')
@@ -93,16 +93,16 @@ void				pf_num_case(va_list arg, t_conversion *cvss)
 			cvss->sign = '+';
 		else if (cvss->flags->space)
 			cvss->sign = ' ';
-		pf_d_case(cvss, inum);
+		pf_itoa_base(cvss, (uintmax_t)inum, 10);
 	}
 	else
 	{
 		unum = get_conv_uint(arg, cvss);
 		if (cvss->type == 'u')
-			pf_itoa_base(cvss, (uintmax_t)unum, 10);
+			pf_itoa_base(cvss, unum, 10);
 		else if (cvss->type == 'o')
-			pf_itoa_base(cvss, (uintmax_t)unum, 8);
+			pf_itoa_base(cvss, unum, 8);
 		else if (ft_strchr("xpX", cvss->type))
-			pf_itoa_base(cvss, (uintmax_t)unum, 16);
+			pf_itoa_base(cvss, unum, 16);
 	}
 }

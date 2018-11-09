@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 23:58:22 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/07 22:48:30 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 11:47:15 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ extern int	ft_isdigit(int c);
 int			ft_atoi(const char *str);
 char		*ft_strchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*ft_strnew(size_t size);
 
 #endif

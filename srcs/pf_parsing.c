@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 15:12:06 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/09 01:58:21 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 10:57:50 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*pf_parse_modifier(char *str, t_conversion *cvss, int check)
 	else
 		cvss->modif = Z;
 	if (!*str)
-		exit (1);
+		exit(1);
 	return (str + 1);
 }
 
@@ -114,4 +114,3 @@ char		*pf_parse_conversion(char *str, t_conversion *cvss)
 	cvss->type = *str;
 	return (str + 1);
 }
-

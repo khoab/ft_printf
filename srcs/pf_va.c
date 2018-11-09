@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 20:05:46 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/09 00:16:29 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 10:57:02 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_conversion		*pf_new_conversion(char *str)
 {
 	t_conversion	*cvss;
 	t_flags			*flags;
-	
+
 	cvss = malloc(sizeof(*cvss));
 	ft_memset((void *)cvss, 0, sizeof(*cvss));
 	cvss->flags = malloc(sizeof(*flags));

@@ -5,7 +5,8 @@ FILES		= ft_memset.c \
 				ft_atoi.c \
 				ft_strlen.c \
 				ft_strncmp.c \
-				ft_inline_helper.c
+				ft_inline_helper.c \
+				ft_strnew.c
 
 OBJ			= $(FILES:%.c=%.o)
 

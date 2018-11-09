@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 17:57:16 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/08 23:02:15 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/09 12:05:07 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void			pf_putwint(wint_t wint);
 */
 
 void			pf_num_case(va_list arg, t_conversion *cvss);
-void			pf_d_case(t_conversion *cvss, uintmax_t num);
 void			pf_itoa_base(t_conversion *cvss, uintmax_t num, int base);
 
 /*
