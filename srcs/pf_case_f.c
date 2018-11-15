@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 19:31:32 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/14 22:07:51 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/14 22:16:47 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static size_t	get_num_len(int n)
 static char	*pf_itoa(unsigned long long n)
 {
 	char			*str;
-	char			*tmp;
 	size_t			str_len;
 
 	str_len = get_num_len(n);
@@ -83,10 +82,7 @@ static char	*pf_itoa(unsigned long long n)
 	str[--str_len] = n % 10 + '0';
 	while (n /= 10)
 		str[--str_len] = n % 10 + '0';
-	tmp = str;
-	free(str);
-	str = NULL;
-	return (tmp);
+	return (str);
 }
 
 #include <stdio.h>
@@ -98,7 +94,6 @@ void		pf_f_case(va_list arg, t_conversion *cvss)
 	char				*whole_str;
 	char				*dec_precision_str;
 	char				*full_str;
-	char				*tmp;
 	
 	f = (cvss->modif == LL) ?
 		(va_arg(arg, long double)) : (va_arg(arg, double));
@@ -106,10 +101,11 @@ void		pf_f_case(va_list arg, t_conversion *cvss)
 	if (cvss->sign == '-')
 		f *= -1;
 	whole_str = pf_itoa((int)f);
-	tmp = whole_str;
 	printf("%s\n", whole_str);
 	dec_precision_num = (!cvss->prec_set) ? ((f - (int)f) * ft_pow(10, 6))
 		: ((f - (int)f) * ft_pow(10, cvss->precision));
+	if (!prec_set)
+		
 	dec_precision_str = pf_itoa(dec_precision_num);
 	printf("%s\n", whole_str);
 	if (cvss->flags->zero && cvss->sign)

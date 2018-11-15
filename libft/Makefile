@@ -9,7 +9,8 @@ FILES		= ft_memset.c \
 				ft_strnew.c \
 				ft_pow.c \
 				ft_strcat.c \
-				ft_memalloc.c
+				ft_memalloc.c \
+				ft_strdup.c
 
 OBJ			= $(FILES:%.c=%.o)
 

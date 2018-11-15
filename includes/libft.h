@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 23:58:22 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/14 22:07:54 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/14 22:13:19 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char		*ft_strnew(size_t size);
 long long	ft_pow(int x, unsigned int y);
 char		*ft_strcat(char *dst, const char *src);
 void		*ft_memalloc(size_t size);
+char		*ft_strdup(const char *s1);
 
 #endif
