@@ -6,14 +6,14 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:56:02 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/09 12:09:49 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/14 19:34:16 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "helper.h"
 
-static void	pf_put_all(t_conversion *cvss, char *num_str, int str_len)
+void		pf_put_all(t_conversion *cvss, char *num_str, int str_len)
 {
 	if (cvss->flags->dash)
 	{
@@ -46,7 +46,7 @@ static char	*pf_xpcapx_case(t_conversion *cvss, char *num_str, int *i)
 		&& *i < 99 && num_str[98] != '0') || cvss->type == 'p')
 		&& ((cvss->type != 'X') ? pf_pacount("0x", 2) : pf_pacount("0X", 2)))
 		cvss->min_width -= 2;
-	else if (cvss->type != 'o' && ((cvss->flags->hash && *i < 99
+	else if (((cvss->flags->hash && *i < 99
 		&& num_str[98] != '0') || cvss->type == 'p'))
 	{
 		num_str[--(*i)] = (cvss->type != 'X') ? 'x' : 'X';

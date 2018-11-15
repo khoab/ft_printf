@@ -6,7 +6,7 @@
 #    By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/19 13:42:34 by kbui              #+#    #+#              #
-#    Updated: 2018/11/06 23:36:40 by kbui             ###   ########.fr        #
+#    Updated: 2018/11/14 19:49:59 by kbui             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SOURCES = pf_va.c \
 			pf_num_case.c \
 			pf_wrd_case.c \
 			pf_wchar_handler.c \
+			pf_case_f.c
 			
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
