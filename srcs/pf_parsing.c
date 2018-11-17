@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 15:12:06 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/16 18:26:51 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 23:47:11 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static char	*pf_parse_percision(char *str, t_conversion *cvss)
 
 static char	*pf_parse_modifier(char *str, t_conversion *cvss, int check)
 {
-	if (!(ft_strchr("hljzL", *str)))
-		return (str);
 	if (check == 1)
 		return (str + 1);
 	if (ft_strncmp(str, "hh", 2) == 0)
@@ -99,7 +97,7 @@ char		*pf_parse_conversion(char *str, t_conversion *cvss)
 	check = 0;
 	while (ft_strchr("#0-+ .hljzL", *str) || ft_atoi(str))
 	{
-		if (ft_strchr("#0-+ ", *str))
+		if (ft_strchr("#0x-+ ", *str))
 			str = pf_parse_flags(str, cvss);
 		if (ft_atoi(str))
 			str = pf_parse_width(str, cvss);

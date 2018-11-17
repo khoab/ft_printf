@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:56:02 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/16 18:13:06 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/17 00:24:44 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		pf_put_all(t_conversion *cvss, char *num_str, int str_len)
 	pf_print_str(num_str);
 }
 
-static char	*pf_d_case(t_conversion *cvss, char *num_str, int *i)
+static void	pf_d_case(t_conversion *cvss, char *num_str, int *i)
 {
 	if (cvss->flags->zero && cvss->sign)
 	{
@@ -37,10 +37,9 @@ static char	*pf_d_case(t_conversion *cvss, char *num_str, int *i)
 	}
 	else if (cvss->sign)
 		num_str[--(*i)] = cvss->sign;
-	return (num_str);
 }
 
-static char	*pf_xpcapx_case(t_conversion *cvss, char *num_str, int *i)
+static void	pf_xpcapx_case(t_conversion *cvss, char *num_str, int *i)
 {
 	if (cvss->flags->zero && ((cvss->flags->hash
 		&& *i < 99 && num_str[98] != '0') || cvss->type == 'p')
@@ -52,21 +51,17 @@ static char	*pf_xpcapx_case(t_conversion *cvss, char *num_str, int *i)
 		num_str[--(*i)] = (cvss->type != 'X') ? 'x' : 'X';
 		num_str[--(*i)] = 48;
 	}
-	return (num_str);
 }
 
 void		pf_itoa_base(t_conversion *cvss, uintmax_t num, int base)
 {
 	static char *def_base;
-	char		*tmp_numstr;
-	char		*num_str;
+	char		num_str[100];
 	int			i;
 
 	def_base = (cvss->type != 'X') ? "0123456789abcdef" : "0123456789ABCDEF";
 	i = 99;
-	tmp_numstr = ft_strnew(99);
-	num_str = tmp_numstr;
-	free(tmp_numstr);
+	num_str[i] = '\0';
 	if (num > 0 || !cvss->prec_set)
 		num_str[--i] = def_base[num % base];
 	while ((num /= base) > 0)
@@ -78,8 +73,8 @@ void		pf_itoa_base(t_conversion *cvss, uintmax_t num, int base)
 	while (cvss->precision > 99 - i)
 		num_str[--i] = def_base[0];
 	if (ft_strchr("xpX", cvss->type))
-		num_str = pf_xpcapx_case(cvss, num_str, &i);
+		pf_xpcapx_case(cvss, num_str, &i);
 	else if (cvss->type == 'd')
-		num_str = pf_d_case(cvss, num_str, &i);
+		pf_d_case(cvss, num_str, &i);
 	pf_put_all(cvss, (num_str + i), (99 - i));
 }

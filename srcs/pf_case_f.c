@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 19:31:32 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/16 17:42:27 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/17 00:18:40 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,20 @@ static char	*pf_mod_strcat(char *dst, const char *src, int *len)
 	return (dst);
 }
 
-static void	pf_f_print(char *num_str, t_conversion *cvss)
+static void	pf_f_print(char *num_str, int i, long double s_part,
+							t_conversion *cvss)
 {
-	int		len;
-	char	sign[2];
+	int			len;
+	char		sign[2];
+	uintmax_t	after_dot;
 
+	after_dot = (!cvss->prec_set) ? 6 : ft_pow(10, cvss->precision);
+	if (after_dot != 0)
+	{
+		num_str[i] = '.';
+		s_part *= ft_pow(10, after_dot);
+		pf_f_itoa((uintmax_t)s_part, num_str + i + 1, after_dot);
+	}
 	len = 0;
 	if (cvss->flags->zero && cvss->sign)
 	{
@@ -98,12 +107,9 @@ void		pf_ftoa(va_list arg, t_conversion *cvss)
 {
 	long double			n;
 	char				num_str[100];
-	uintmax_t			after_dot;
 	uintmax_t			i;
 	long double			second_part;
 
-	after_dot = (!cvss->prec_set) ? 6 : cvss->precision;
-	ft_memset(&num_str, 0, 99);
 	n = (cvss->modif == CAPL) ?
 			(va_arg(arg, long double)) : (va_arg(arg, double));
 	if (n < 0 && (n *= -1))
@@ -114,11 +120,5 @@ void		pf_ftoa(va_list arg, t_conversion *cvss)
 		cvss->sign = ' ';
 	second_part = n - (long double)(uintmax_t)n;
 	i = pf_f_itoa((uintmax_t)n, num_str, 0);
-	if (after_dot != 0)
-	{
-		num_str[i] = '.';
-		second_part *= ft_pow(10, after_dot);
-		pf_f_itoa((uintmax_t)second_part, num_str + i + 1, after_dot);
-	}
-	pf_f_print(num_str, cvss);
+	pf_f_print(num_str, i, second_part, cvss);
 }
