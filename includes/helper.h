@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 17:57:16 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/14 19:48:47 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 17:33:38 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_flags
 
 typedef enum	e_modifier
 {
-	NONE, HH, H, LL, L, J, Z
+	NONE, HH, H, LL, L, J, Z, CAPL
 }				t_modifier;
 
 typedef struct	s_conversion
@@ -74,7 +74,7 @@ void			pf_putwint(wint_t wint);
 
 void			pf_num_case(va_list arg, t_conversion *cvss);
 void			pf_itoa_base(t_conversion *cvss, uintmax_t num, int base);
-void			pf_f_case(va_list arg, t_conversion *cvss);
+void			pf_ftoa(va_list arg, t_conversion *cvss);
 void			pf_put_all(t_conversion *cvss, char *num_str, int str_len);
 
 /*

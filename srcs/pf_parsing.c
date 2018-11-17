@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 15:12:06 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/09 10:57:50 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 18:26:51 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*pf_parse_percision(char *str, t_conversion *cvss)
 
 static char	*pf_parse_modifier(char *str, t_conversion *cvss, int check)
 {
-	if (!(ft_strchr("hljz", *str)))
+	if (!(ft_strchr("hljzL", *str)))
 		return (str);
 	if (check == 1)
 		return (str + 1);
@@ -79,6 +79,8 @@ static char	*pf_parse_modifier(char *str, t_conversion *cvss, int check)
 	}
 	if (*str == 'h')
 		cvss->modif = H;
+	else if (*str == 'L')
+		cvss->modif = CAPL;
 	else if (*str == 'l')
 		cvss->modif = L;
 	else if (*str == 'j')
@@ -95,7 +97,7 @@ char		*pf_parse_conversion(char *str, t_conversion *cvss)
 	int		check;
 
 	check = 0;
-	while (ft_strchr("#0-+ .hljz", *str) || ft_atoi(str))
+	while (ft_strchr("#0-+ .hljzL", *str) || ft_atoi(str))
 	{
 		if (ft_strchr("#0-+ ", *str))
 			str = pf_parse_flags(str, cvss);
@@ -103,13 +105,13 @@ char		*pf_parse_conversion(char *str, t_conversion *cvss)
 			str = pf_parse_width(str, cvss);
 		if (*str == '.')
 			str = pf_parse_percision(str, cvss);
-		if (ft_strchr("hljz", *str))
+		if (ft_strchr("hljzL", *str))
 		{
 			str = pf_parse_modifier(str, cvss, check);
 			check = 1;
 		}
 	}
-	if (!*str)
+	if (!*str || (cvss->modif == CAPL && *str != 'f'))
 		exit(1);
 	cvss->type = *str;
 	return (str + 1);

@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 13:00:34 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/14 22:12:21 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 16:36:58 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		*ft_strdup(const char *s1)
 	size_t	i;
 	size_t	len;
 	char	*tmp;
-	
+
 	len = ft_strlen(s1);
 	dup = (char *)malloc(len + 1);
 	if (dup == NULL)

@@ -6,76 +6,80 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 19:31:32 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/15 15:43:59 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 17:42:27 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "helper.h"
 
-static char	*pf_moded_strjoin(const char *s1, const char *s2)
-{
-	char	*str;
-	char	*dot;
-	size_t	len;
+/*
+** Reverses a string 'str' of length 'len'
+*/
 
-	dot = ".";
-	len = ft_strlen(s1) + ft_strlen(s2) + 2;
-	str = ft_memalloc(len);
-	if (str)
+static void	pf_reverse(char *str, int len)
+{
+	int		i;
+	int		j;
+	char	tmp;
+
+	i = 0;
+	j = len - 1;
+	while (i < j)
 	{
-		str = ft_strcat(str, s1);
-		str = ft_strcat(str, dot);
-		str = ft_strcat(str, s2);
+		tmp = str[i];
+		str[i] = str[j];
+		str[j] = tmp;
+		i++;
+		j--;
 	}
-	return (str);
 }
 
-static char	*pf_triple_strjoin(char c, const char *s1, const char *s2)
+/*
+** Converts a given integer x to string.  d is the number
+** of digits required in output. If d is more than the number
+** of digits in x, then 0s are added at the beginning.
+*/
+
+uintmax_t	pf_f_itoa(uintmax_t x, char *str, uintmax_t d)
 {
-	char	*str;
-	char	*dot;
+	uintmax_t	i;
+
+	i = -1;
+	str[++i] = (x % 10) + '0';
+	while (x /= 10)
+		str[++i] = (x % 10) + '0';
+	while (++i < d)
+		str[i] = '0';
+	pf_reverse(str, i);
+	str[i] = '\0';
+	return (i);
+}
+
+/*
+** Use to conver floating number to a string
+*/
+
+static char	*pf_mod_strcat(char *dst, const char *src, int *len)
+{
+	size_t	i;
+	size_t	j;
+
+	i = ft_strlen(dst);
+	j = 0;
+	while (src[j])
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+	*len = i;
+	return (dst);
+}
+
+static void	pf_f_print(char *num_str, t_conversion *cvss)
+{
+	int		len;
 	char	sign[2];
-	size_t	len;
 
-	dot = ".";
-	sign[0] = c;
-	sign[1] = '\0';
-	len = ft_strlen(s1) + ft_strlen(s2) + 3;
-	str = ft_memalloc(len);
-	if (str)
-	{
-		str = ft_strcat(str, sign);
-		str = ft_strcat(str, s1);
-		str = ft_strcat(str, dot);
-		str = ft_strcat(str, s2);
-	}
-	return (str);
-}
-#include <math.h>
-static char	*pf_ftoa(int n)
-{
-	char				*str;
-	size_t				str_len;
-	int	tmp_nbr;
-	
-	str_len = 1;
-	tmp_nbr = (int)n;
-	while (tmp_nbr /= 10)
-		str_len++;
-	str = ft_strnew(str_len);
-	str[--str_len] = n % 10 + '0';
-	while (n /= 10)
-		str[--str_len] = n % 10 + '0';
-	printf("%s\n", str);
-	return (str);
-}
-
-static void	pf_f_case_cont(char *whole_str, char *dec_precision_str,
-								t_conversion *cvss)
-{
-	char	*full_str;
-
+	len = 0;
 	if (cvss->flags->zero && cvss->sign)
 	{
 		pf_pacount(&(cvss->sign), 1);
@@ -83,45 +87,38 @@ static void	pf_f_case_cont(char *whole_str, char *dec_precision_str,
 	}
 	else if (cvss->sign)
 	{
-		full_str = pf_triple_strjoin(cvss->sign, whole_str, dec_precision_str);
-		pf_put_all(cvss, full_str, ft_strlen(full_str));
-		ft_strdel(&whole_str);
-		ft_strdel(&dec_precision_str);
-		return ;
+		sign[0] = cvss->sign;
+		sign[1] = '\0';
+		num_str = pf_mod_strcat(sign, num_str, &len);
 	}
-	full_str = pf_moded_strjoin(whole_str, dec_precision_str);
-	ft_strdel(&whole_str);
-	ft_strdel(&dec_precision_str);
-	pf_put_all(cvss, full_str, ft_strlen(full_str));
+	pf_put_all(cvss, num_str, len);
 }
 
-static void pf_sign(long double f, t_conversion *cvss)
+void		pf_ftoa(va_list arg, t_conversion *cvss)
 {
-	if (f < 0)
+	long double			n;
+	char				num_str[100];
+	uintmax_t			after_dot;
+	uintmax_t			i;
+	long double			second_part;
+
+	after_dot = (!cvss->prec_set) ? 6 : cvss->precision;
+	ft_memset(&num_str, 0, 99);
+	n = (cvss->modif == CAPL) ?
+			(va_arg(arg, long double)) : (va_arg(arg, double));
+	if (n < 0 && (n *= -1))
 		cvss->sign = '-';
 	else if (cvss->flags->plus)
 		cvss->sign = '+';
 	else if (cvss->flags->space)
 		cvss->sign = ' ';
-}
-
-void		pf_f_case(va_list arg, t_conversion *cvss)
-{
-	long double			f;
-	long double			dec_precision_num;
-	char				*whole_str;
-	char				*dec_precision_str;
-	
-	f = (cvss->modif == LL) ?
-		(va_arg(arg, long double)) : (va_arg(arg, double));
-	pf_sign(f, cvss);
-	if (f < 0)
-		f = -f;
-	whole_str = pf_ftoa((int)f);
-	dec_precision_num = (!cvss->prec_set) ? ((f - (int)f) * pow(10, 6))
-		: ((f - (int)f) * pow(10, cvss->precision));
-	printf("%0.16Lf\n", (long double)0.42);
-	dec_precision_str = pf_ftoa((int)dec_precision_num);
-	printf("%s\n", dec_precision_str);
-	pf_f_case_cont(whole_str, dec_precision_str, cvss);
+	second_part = n - (long double)(uintmax_t)n;
+	i = pf_f_itoa((uintmax_t)n, num_str, 0);
+	if (after_dot != 0)
+	{
+		num_str[i] = '.';
+		second_part *= ft_pow(10, after_dot);
+		pf_f_itoa((uintmax_t)second_part, num_str + i + 1, after_dot);
+	}
+	pf_f_print(num_str, cvss);
 }

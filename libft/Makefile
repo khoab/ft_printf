@@ -12,8 +12,7 @@ FILES		= ft_memset.c \
 				ft_memalloc.c \
 				ft_strdup.c \
 				ft_strdel.c \
-				ft_memdel.c \
-				ft_mod.c
+				ft_memdel.c
 
 OBJ			= $(FILES:%.c=%.o)
 

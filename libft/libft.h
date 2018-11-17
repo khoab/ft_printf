@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 23:58:22 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/15 13:16:19 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/16 16:18:29 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void		*ft_memalloc(size_t size);
 char		*ft_strdup(const char *s1);
 void		ft_strdel(char **as);
 void		ft_memdel(void **ap);
-double		ft_mod(double a, double b);
 
 #endif
