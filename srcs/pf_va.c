@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 20:05:46 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/17 00:09:24 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/17 18:53:53 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char				*pf_conversion(va_list arg, char *str)
 
 	cvss = pf_new_conversion(str);
 	str = pf_parse_conversion(str, cvss);
-	if (ft_strchr(("idDoOuUxXp"), cvss->type))
+	if (ft_strchr(("bidDoOuUxXp"), cvss->type))
 		pf_num_case(arg, cvss);
 	else if (cvss->type == 'f')
 		pf_ftoa(arg, cvss);

@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:56:02 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/17 00:24:44 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/17 16:53:40 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		pf_itoa_base(t_conversion *cvss, uintmax_t num, int base)
 		num_str[--i] = def_base[0];
 	if (ft_strchr("xpX", cvss->type))
 		pf_xpcapx_case(cvss, num_str, &i);
-	else if (cvss->type == 'd')
+	else if (cvss->type == 'd' || cvss->type == 'b')
 		pf_d_case(cvss, num_str, &i);
 	pf_put_all(cvss, (num_str + i), (99 - i));
 }

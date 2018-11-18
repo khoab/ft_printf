@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:40:03 by kbui              #+#    #+#             */
-/*   Updated: 2018/11/14 19:42:02 by kbui             ###   ########.fr       */
+/*   Updated: 2018/11/17 18:53:43 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void				pf_num_case(va_list arg, t_conversion *cvss)
 	uintmax_t	unum;
 
 	is_alias(cvss);
-	if (cvss->type == 'd')
+	if (cvss->type == 'd' || cvss->type == 'b')
 	{
 		inum = get_conv_int(arg, cvss);
 		if (inum < 0 && (inum *= -1))
@@ -93,7 +93,10 @@ void				pf_num_case(va_list arg, t_conversion *cvss)
 			cvss->sign = '+';
 		else if (cvss->flags->space)
 			cvss->sign = ' ';
-		pf_itoa_base(cvss, (uintmax_t)inum, 10);
+		if (cvss->type == 'b')
+			pf_itoa_base(cvss, (uintmax_t)inum, 2);
+		else
+			pf_itoa_base(cvss, (uintmax_t)inum, 10);
 	}
 	else
 	{
