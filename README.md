@@ -8,7 +8,6 @@ This project aim to getting familar with C, know how to va_arg, va_start, ... an
 
 <b>What can b_printf does?</b>
 <br />For now, ft_printf only handle:
-
 <br />• Manage the following conversions: csp
 <br />• Manage the following conversions: diouxX with the following flags: hh, h, l and ll.
 <br />• Manage the following conversion: f with the following flags: l and L.
@@ -16,7 +15,6 @@ This project aim to getting familar with C, know how to va_arg, va_start, ... an
 <br />• Manage the flags #0-+ and space
 <br />• Manage the minimum field-width
 <br />• Manage the precision.
-
 <br />All the other case and feature couldn't be handle on purpose.
 
 <b>How long did i take from me to finish ft_printf?</b>
