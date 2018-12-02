@@ -1,7 +1,7 @@
 # ft_printf
 Because I'm tired of using putstr, putnbr, ...
 
-This project aim to getting familar with C, know how to va_arg, va_start, ... and the most important thing is create my own version of printf to use while I'm studying @ 42SiliconValley.
+This project aim to getting familar with C, know how to use va_arg, va_start, ... and the most important thing is create my own version of printf to use while I'm studying @ 42SiliconValley.
 
 <b>What is my printf name?</b>
 <br />I will call my printf is ft_printf from now for the whole project.
